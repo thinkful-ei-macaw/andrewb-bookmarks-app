@@ -1,3 +1,4 @@
+<!-- FORM ERROR VIEW -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,10 @@
 <body>
     <h1>Bookmark List</h1>
     <form id="bookmark-form">
-        <button type="submit" class="button">Add New Bookmark</button>
+        <label for="add-bookmark">Add New Bookmark:</label>
+        <input type="text" id="new-bookmark" placeholder="Enter New Bookmark" required>
         <select name="rating" id="book-rate">
-            <option value="">--Filter By Rating--</option>
+            <option value="">--Give A Rating--</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -20,11 +22,23 @@
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        <textarea id="bookmark-description" placeholder="Give a description"></textarea>
+        <div id="error-message">Rating required</div>
+        <button id="create-bookmark">Create</button>
+        <button id="cancel-bookmark">Cancel</button>
+
     </form>
 
-    <seciton id="bookmarks-display"></seciton>
-    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
+
+<code>
+    const store = {
+        bookmarks: [...],
+        adding: false,
+        error: ${error.message},
+        filter: 0
+      };
+</code>

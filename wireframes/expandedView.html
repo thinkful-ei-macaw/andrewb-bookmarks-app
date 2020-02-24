@@ -1,0 +1,72 @@
+<!-- EXPANDED VIEW -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="bookmark-list" content="web application with a list of bookmarks">
+    <link rel="stylesheet" href="index.css">
+    <title>Bookmark List</title>
+</head>
+<body>
+    <h1>Bookmark List</h1>
+    <form id="bookmark-form">
+        <button type="submit" class="button">Add New Bookmark</button>
+        <select name="rating" id="book-rate">
+            <option value="">--Filter By Rating--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </form>
+
+    <section id="bookmarks-display">
+        <article>
+            <h2>Title 1</h2>
+            <p>Rating: 3 stars</p>
+            <p>URL: <a>'http://www.title1.com'</a></p>
+            <p>Description: 'lorem ipsum dolor sit'</p>
+        </article>
+
+        <article>
+            <h2>Title 2</h2>
+            <p>Rating: 5 stars</p>
+            <p>URL: <a>'http://www.title2.com'</a></p>
+            <p>Description: 'dolorum tempore deserunt'</p>
+        </article>
+    </section>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
+
+<code>
+    const store = {
+        bookmarks: [
+          {
+            id: 'x56w',
+            title: 'Title 1',
+            rating: 3,
+            url: 'http://www.title1.com',
+            description: 'lorem ipsum dolor sit',
+            expanded: true
+          },
+          {
+            id: '6ffw',
+            title: 'Title 2',
+            rating: 5,
+            url: 'http://www.title2.com',
+            description: 'dolorum tempore deserunt',
+            expanded: true
+          } 
+          ...
+        ],
+        adding: false,
+        error: null,
+        filter: 0
+      };
+</code>
