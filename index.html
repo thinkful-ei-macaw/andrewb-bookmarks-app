@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="bookmark-list" content="web application with a list of bookmarks">
+    <link rel="stylesheet" href="index.css">
+    <title>Bookmark List</title>
+</head>
+<body>
+    <h1>Bookmark List</h1>
+    <form>
+        <button type="submit" class="button">Add New Bookmark</button>
+        <select name="rating" id="book-rate">
+            <option value="">--Please Rate this book--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </form>
+
+    <seciton id="bookmarks-display"></seciton>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
