@@ -1,14 +1,4 @@
-const bookmarks = [
-  {
-    id: 'x56w',
-    title: 'Title 1',
-    rating: 3,
-    url: 'http://www.title1.com',
-    description: 'lorem ipsum dolor sit',
-    expanded: false
-  }
-];
-
+const bookmarks = [];
 let adding = false;
 let error = null;
 let filter = 0;
@@ -25,8 +15,6 @@ const findAndDeleteBookmark = function (id) {
   this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
 };
 
-// add rating function
-
 const setError = function(error) {
   this.requestError = error;
 };
@@ -37,6 +25,9 @@ const getError = function() {
 
 export default {
   bookmarks,
+  adding, 
+  error, 
+  filter,
   findById,
   addBookmark,
   findAndDeleteBookmark,

@@ -3,18 +3,21 @@ import store from './store.js';
 import api from './api.js';
 
 const render = function () {
-  const html = this.generateBooklistString(store.bookmarks);
+  const html = generateBooklistString(store.bookmarks);
   $('#bookmarks-display').html(html);
 };
 
 const generateBookmarkElement = function (bookmark) {
   return `
-    <li class="js-item-element" id="${bookmark.id}">
+    <li class="bookmark-item" data-item-id="${bookmark.id}">
       <h2>${bookmark.title}</h2>
-      <span class="book-rating">${bookmark.rating} out of 5</span>
+      <p class="book-rating">${bookmark.rating} ✩ out of 5</p>
       <div class="shopping-item-controls">
         <button class="bookmark-delete">
           <span class="button-label">Delete</span>
+        </button>
+        <button class="bookmark-update">
+          <span class="button-label">Update</span>
         </button>
       </div>
     </li>`;
@@ -22,13 +25,11 @@ const generateBookmarkElement = function (bookmark) {
 
 const getBookmarkIdFromElement = function (bookmark) {
   return $(bookmark)
-    .closest('.js-item-element')
-    .attr('id');
+    .closest('.bookmark-item')
+    .data('item-id');
 };
 
-$('getBookmarkIdFromElement');
-
-const bindEventListeners = function() {
+const addNewBookmark = function() {
   $('#bookmark-form').on('submit', e => {
     e.preventDefault();
     const rating = e.target.rating.value;
@@ -39,20 +40,20 @@ const bindEventListeners = function() {
       // .then(res => res.json())
       .then(data => {
         store.addBookmark(data);
-        this.render();
+        render();
       });     
   })
 }
 
 const deleteBookmarkClicked = function() {
-  $('#bookmarks-form').on('click', '.bookmark-delete', event => {
+  $('#bookmarks-display').on('click', '.bookmark-delete', event => {
     
     const id = getBookmarkIdFromElement(event.currentTarget);
-    
+    console.log(id);
     api.deleteBookmark(id)
       .then( () => {
         store.findAndDeleteBookmark(id);
-        this.render();
+        render();
       });
   });
 };
@@ -61,6 +62,11 @@ const generateBooklistString = function (bookmarkList) {
   const bookmarks = bookmarkList.map((book) => generateBookmarkElement(book));
   return bookmarks.join('');
 
+}
+
+const bindEventListeners = function () {
+  addNewBookmark();
+  deleteBookmarkClicked();
 }
 
 export default {
