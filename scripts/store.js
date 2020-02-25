@@ -15,6 +15,11 @@ const findAndDeleteBookmark = function (id) {
   this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
 };
 
+const editThisBookmark = function (id, data) {
+  const bookmark = this.findById(id);
+  Object.assign(bookmark, data);
+};
+
 const setError = function(error) {
   this.requestError = error;
 };
@@ -31,6 +36,7 @@ export default {
   findById,
   addBookmark,
   findAndDeleteBookmark,
+  editThisBookmark,
   setError,
   getError,
 };
