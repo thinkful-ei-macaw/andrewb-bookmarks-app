@@ -10,7 +10,8 @@
 <body>
     <h1>Bookmark List</h1>
     <form id="bookmark-form">
-        <button type="submit" class="button">Add New Bookmark</button>
+        <input type="text" name="title"/>
+        <input type="text" name="url"/>
         <select name="rating" id="book-rate">
             <option value="">--Filter By Rating--</option>
             <option value="0">0</option>
@@ -20,11 +21,12 @@
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        <button type="submit" class="button">Add New Bookmark</button>
     </form>
 
-    <seciton id="bookmarks-display"></seciton>
+    <ul id="bookmarks-display"></ul>
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="module" src="/scripts/index.js"></script>
 </body>
 </html>
