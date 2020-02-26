@@ -3,6 +3,7 @@ let adding = false;
 let error = null;
 let filter = 0;
 let expanded = false;
+let update = false;
 
 const findById = function (id) {
   return this.bookmarks.find(currentItem => currentItem.id === id);
@@ -14,6 +15,11 @@ const addBookmark = function (item) {
 
 const findAndDeleteBookmark = function (id) {
   this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
+};
+
+const updateBookmark = function (id) {
+  const bookmark = this.findById(id);
+  bookmark.update = !bookmark.update;
 };
 
 const editThisBookmark = function (id, data) {
@@ -39,11 +45,13 @@ export default {
   adding, 
   error, 
   expanded,
+  update,
   filter,
   findById,
   addBookmark,
   expandBookmarkView,
   findAndDeleteBookmark,
+  updateBookmark,
   editThisBookmark,
   setError,
   getError,

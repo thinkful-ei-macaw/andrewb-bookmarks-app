@@ -11,16 +11,21 @@
     <div class="container">
     <h1>Bookmark List</h1>
     <form id="bookmark-form">
-        <input type="text" name="title"/>
-        <input type="text" name="url"/>
+        <label for="title">Name: </label>
+        <input type="text" name="title" placeholder="Title here" required/><br>
+        <label for="url">Website: </label>
+        <input type="text" name="url" placeholder="Ex., http or https" required/><br>
+        <label for="desc">Description:</label>
+        <input type="text" name="desc" placeholder="Add a brief description here"/><br>
+        <label for="rating">Rating: </label>
         <select name="rating" id="book-rate">
-            <option value="">--Filter By Rating--</option>
+            <option value="">--Give A Rating--</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-        </select>
+        </select><br>
         <button type="submit" class="button">Add New Bookmark</button>
     </form>
 
