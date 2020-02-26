@@ -6,6 +6,51 @@ const render = function () {
   $('#bookmarks-display').html(html);
 };
 
+// const generateInitialPage = function() {
+//   return `<div class="container">
+//     <h1>Bookmark List</h1>
+//     <form id="bookmark-form">
+//         <button type="submit" class="button">Add New Bookmark</button>
+//         <select name="rating" id="book-rate">
+//             <option value="">--Filter By Rating--</option>
+//             <option value="1">1</option>
+//             <option value="2">2</option>
+//             <option value="3">3</option>
+//             <option value="4">4</option>
+//             <option value="5">5</option>
+//         </select><br>
+//     </form>
+
+//     <ul id="bookmarks-display"></ul>
+//     </div>`;
+// };
+
+// const generateNewBookmark = function(bookmark) {
+//   return `<div class="container">
+//     <h1>Bookmark List</h1>
+//     <form id="bookmark-form">
+//         <label for="title">Name: </label>
+//         <input type="text" name="title" id="title" placeholder="Title here" required/><br>
+//         <label for="url">Website: </label>
+//         <input type="text" name="url" id ="url" placeholder="Ex., http or https" required/><br>
+//         <label for="desc">Description:</label>
+//         <input type="text" name="desc" id="desc" placeholder="Add a brief description here"/><br>
+//         <label for="rating">Rating: </label>
+//         <select name="rating" id="book-rate">
+//             <option value="">--Give A Rating--</option>
+//             <option value="1">1</option>
+//             <option value="2">2</option>
+//             <option value="3">3</option>
+//             <option value="4">4</option>
+//             <option value="5">5</option>
+//         </select><br>
+//         <button type="submit" class="button">Add New Bookmark</button>
+//     </form>
+
+//     <ul id="bookmarks-display"></ul>
+//     </div>`;
+// }
+
 const generateBookmarkElement = function (bookmark) {
   return `
     <li class="bookmark-item" data-item-id="${bookmark.id}">
@@ -63,8 +108,8 @@ const generateUpdatedBookmark = function (bookmark) {
         <button class="bookmark-cancel">
           <span class="button-label">Cancel</span>
         </button>
-        <button class="bookmark-update">
-          <span class="button-label">Update</span>
+        <button class="bookmark-edit">
+          <span class="button-label">Edit</span>
         </button>
       </div>
     </li>`;
@@ -98,10 +143,7 @@ const addNewBookmark = function() {
         store.addBookmark(data);
         render();
       });
-    rating.val('');
-    title.val('');
-    url.val('');
-    describe.val('');     
+ 
   })
 }
 
@@ -141,6 +183,7 @@ const generateBooklistString = function (bookmarkList) {
 }
 
 const bindEventListeners = function () {
+  // generateInitialPage();
   addNewBookmark();
   deleteBookmarkClicked();
   updateCurrentBookmark();
