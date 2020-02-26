@@ -13,6 +13,10 @@ const addBookmark = function (item) {
   this.bookmarks.push(item);
 };
 
+const addBookmarkStart = function () {
+  this.adding = !this.adding;
+};
+
 const findAndDeleteBookmark = function (id) {
   this.bookmarks = this.bookmarks.filter(currentItem => currentItem.id !== id);
 };
@@ -49,6 +53,7 @@ export default {
   filter,
   findById,
   addBookmark,
+  addBookmarkStart,
   expandBookmarkView,
   findAndDeleteBookmark,
   updateBookmark,

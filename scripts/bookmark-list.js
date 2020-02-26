@@ -3,53 +3,60 @@ import api from './api.js';
 
 const render = function () {
   const html = generateBooklistString(store.bookmarks);
-  $('#bookmarks-display').html(html);
+  
+  if(store.adding === false) {
+    $('#starter').html(generateInitialPage()).append(html);
+  }
+  else if(store.adding === true) {
+    $('#starter').html(generateNewBookmark()).append(html);
+  }
+  
 };
 
-// const generateInitialPage = function() {
-//   return `<div class="container">
-//     <h1>Bookmark List</h1>
-//     <form id="bookmark-form">
-//         <button type="submit" class="button">Add New Bookmark</button>
-//         <select name="rating" id="book-rate">
-//             <option value="">--Filter By Rating--</option>
-//             <option value="1">1</option>
-//             <option value="2">2</option>
-//             <option value="3">3</option>
-//             <option value="4">4</option>
-//             <option value="5">5</option>
-//         </select><br>
-//     </form>
+const generateInitialPage = function() {
+  return `<div class="container">
+    <h1>Bookmark List</h1>
+    <form id="bookmark-form">
+        <button type="submit" class="bookmark-add-button">Add New Bookmark</button>
+        <select name="rating" id="book-rate">
+            <option value="">--Filter By Rating--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br>
+    </form>
 
-//     <ul id="bookmarks-display"></ul>
-//     </div>`;
-// };
+    <ul id="bookmarks-display"></ul>
+    </div>`;
+};
 
-// const generateNewBookmark = function(bookmark) {
-//   return `<div class="container">
-//     <h1>Bookmark List</h1>
-//     <form id="bookmark-form">
-//         <label for="title">Name: </label>
-//         <input type="text" name="title" id="title" placeholder="Title here" required/><br>
-//         <label for="url">Website: </label>
-//         <input type="text" name="url" id ="url" placeholder="Ex., http or https" required/><br>
-//         <label for="desc">Description:</label>
-//         <input type="text" name="desc" id="desc" placeholder="Add a brief description here"/><br>
-//         <label for="rating">Rating: </label>
-//         <select name="rating" id="book-rate">
-//             <option value="">--Give A Rating--</option>
-//             <option value="1">1</option>
-//             <option value="2">2</option>
-//             <option value="3">3</option>
-//             <option value="4">4</option>
-//             <option value="5">5</option>
-//         </select><br>
-//         <button type="submit" class="button">Add New Bookmark</button>
-//     </form>
+const generateNewBookmark = function() {
+  return `<div class="container">
+    <h1>Bookmark List</h1>
+    <form id="bookmark-form">
+        <label for="title">Name: </label>
+        <input type="text" name="title" id="title" placeholder="Title here" required/><br>
+        <label for="url">Website: </label>
+        <input type="text" name="url" id ="url" placeholder="Ex., http or https" required/><br>
+        <label for="desc">Description:</label>
+        <input type="text" name="desc" id="desc" placeholder="Add a brief description here"/><br>
+        <label for="rating">Rating: </label>
+        <select name="rating" id="book-rate">
+            <option value="">--Give A Rating--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select><br>
+        <button type="submit" class="button">Add New Bookmark</button>
+    </form>
 
-//     <ul id="bookmarks-display"></ul>
-//     </div>`;
-// }
+    <ul id="bookmarks-display"></ul>
+    </div>`;
+}
 
 const generateBookmarkElement = function (bookmark) {
   return `
@@ -121,16 +128,35 @@ const getBookmarkIdFromElement = function (bookmark) {
     .data('item-id');
 };
 
+const addBookmarkStart = function () {
+  $('#starter').on('click', '.bookmark-add-button', event => {
+    event.preventDefault();
+    store.adding = true;
+    render();
+  });
+};
+
 const expandView = function () {
-  $('#bookmarks-display').on('click', '.bookmark-expanded-view', event => {
+  $('#starter').on('click', '.bookmark-expanded-view', event => {
     const id = getBookmarkIdFromElement(event.currentTarget);
     store.expandBookmarkView(id);
+    render();
+  });
+  store.expanded = false;
+};
+
+const closeBookmark = function () {
+  $('#starter').on('click', '.bookmark-close', event => {
+    event.preventDefault();
+    const id = getBookmarkIdFromElement(event.currentTarget);
+    store.expandBookmarkView(id);
+    store.expanded = false;
     render();
   });
 };
 
 const addNewBookmark = function() {
-  $('#bookmark-form').on('submit', e => {
+  $('#starter').on('submit', e => {
     e.preventDefault();
     const rating = e.target.rating.value;
     const title = e.target.title.value;
@@ -143,12 +169,12 @@ const addNewBookmark = function() {
         store.addBookmark(data);
         render();
       });
- 
-  })
-}
+    store.adding = false;
+  });
+};
 
 const deleteBookmarkClicked = function() {
-  $('#bookmarks-display').on('click', '.bookmark-delete', event => {
+  $('#starter').on('click', '.bookmark-delete', event => {
     const id = getBookmarkIdFromElement(event.currentTarget);
     api.deleteBookmark(id)
       .then( () => {
@@ -159,12 +185,22 @@ const deleteBookmarkClicked = function() {
 };
 
 const updateCurrentBookmark = function() {
-  $('#bookmarks-display').on('click', '.bookmark-update', event => {
+  $('#starter').on('click', '.bookmark-update', event => {
     const id = getBookmarkIdFromElement(event.currentTarget);
     store.updateBookmark(id);
     render();
   });
     
+};
+
+const cancelBookmarkUpdate = function () {
+  $('#starter').on('click', '.bookmark-cancel', event => {
+    event.preventDefault();
+    const id = getBookmarkIdFromElement(event.currentTarget);
+    store.updateBookmark(id);
+    store.update = false;
+    render();
+  });
 };
 
 const generateBooklistString = function (bookmarkList) {
@@ -183,12 +219,14 @@ const generateBooklistString = function (bookmarkList) {
 }
 
 const bindEventListeners = function () {
-  // generateInitialPage();
   addNewBookmark();
+  addBookmarkStart();
   deleteBookmarkClicked();
   updateCurrentBookmark();
+  cancelBookmarkUpdate();
   expandView();
-}
+  closeBookmark();
+};
 
 export default {
   render,
