@@ -1,7 +1,7 @@
 const bookmarks = [];
 let adding = false;
 let error = null;
-let filter = 0;
+let filter = 1;
 let expanded = false;
 let update = false;
 
@@ -25,6 +25,7 @@ const updateBookmark = function (id) {
   const bookmark = this.findById(id);
   bookmark.update = !bookmark.update;
 };
+
 
 const editThisBookmark = function (id, data) {
   const bookmark = this.findById(id);
