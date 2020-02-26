@@ -101,7 +101,7 @@ const generateUpdatedBookmark = function (bookmark) {
   return `
     <li class="bookmark-item" data-item-id="${bookmark.id}">
       <label for="title">Name:</label>
-      <input type="text" name="title" value="${bookmark.title}"/><br>
+      <input type="text" id="name" name="title" value="${bookmark.title}"/><br>
       <label class="book-rating">✩ out of 5</label>
       <select name="rating" id="book-rating" value="${bookmark.rating}">
             <option value="">--Filter By Rating--</option>
@@ -112,9 +112,9 @@ const generateUpdatedBookmark = function (bookmark) {
             <option value="5">5</option>
       </select><br>
       <label for="url">Website:</label>
-      <input type="text" name="url" value="${bookmark.url}"/><br>
+      <input type="text" id="url" name="url" value="${bookmark.url}"/><br>
       <label for="description">Description:</label>
-      <textarea id="description" value="${bookmark.desc}">Please add a brief description about this bookmark</textarea><br>
+      <textarea id="description" value="${bookmark.desc}" placeholder="Please add a brief description" ></textarea><br>
       <div class="shopping-item-controls">
         <button class="bookmark-cancel">
           <span class="button-label">Cancel</span>
@@ -167,6 +167,7 @@ const addNewBookmark = function() {
     const url = e.target.url.value;
     const desc = e.target.desc.value;
     const bookmark = {title, url, rating, desc};
+    console.log(bookmark);
     api.createBookmark(bookmark)
       // .then(res => res.json())
       .then(data => {
@@ -179,7 +180,9 @@ const addNewBookmark = function() {
 
 const deleteBookmarkClicked = function() {
   $('#starter').on('click', '.bookmark-delete', event => {
+    console.log("Hello?");
     const id = getBookmarkIdFromElement(event.currentTarget);
+    console.log(id);
     api.deleteBookmark(id)
       .then( () => {
         store.findAndDeleteBookmark(id);
@@ -210,17 +213,27 @@ const updateCurrentBookmark = function() {
   });
 };
 
-// const editBookmark = function () {
-//   $('#starter').on('click', '.bookmark-edit', event => {
-//     const id = getBookmarkIdFromElement(event.currentTarget);
-//     const data = serializeJson(event.Target);
-//     api.updateItem(id, data) 
-//       .then( () => {
-//         store.editThisBookmark(id, data);
-//         render();
-//       });
-//   });
-// };
+const editBookmark = function () {
+  $('#starter').on('click', '.bookmark-edit', event => {
+   
+    const bookmark = 
+    {
+      'title': $('#name').val(),
+      'rating': $('#book-rating').val(),
+      'url': $('#url').val(),
+      'desc': $('#description').val()
+    };
+    const id = getBookmarkIdFromElement(event.currentTarget);
+    console.log(id);
+    console.log(bookmark);
+    api.updateBookmark(id, bookmark) 
+      .then( () => {
+        store.editThisBookmark(id, bookmark);
+        render();
+      });
+    bookmark.update = false;
+  });
+};
 
 const cancelBookmarkUpdate = function () {
   $('#starter').on('click', '.bookmark-cancel', event => {
@@ -231,13 +244,6 @@ const cancelBookmarkUpdate = function () {
     render();
   });
 };
-
-// function serializeJson(form) {
-//   const formData = new FormData(form);
-//   const o = {};
-//   formData.forEach((val, name) => o[name] = val);
-//   return JSON.stringify(o);
-// }
 
 const generateBooklistString = function (bookmarkList) {
   const bookmarks = bookmarkList.map((book) => {
@@ -261,7 +267,7 @@ const bindEventListeners = function () {
   updateCurrentBookmark();
   cancelBookmarkUpdate();
   filterBookmarksByRating();
-  // editBookmark();
+  editBookmark();
   expandView();
   closeBookmark();
 };
@@ -269,6 +275,4 @@ const bindEventListeners = function () {
 export default {
   render,
   bindEventListeners,
-  generateBookmarkElement,
-  generateBooklistString
-}
+};
