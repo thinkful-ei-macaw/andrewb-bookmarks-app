@@ -1,4 +1,4 @@
-https://github.com/thinkful-ei-macaw/andrewb-bookmarks-app
+https://thinkful-ei-macaw.github.io/andrewb-bookmarks-app/
 
 # andrewb-bookmarks-app
 Bookmarks App
