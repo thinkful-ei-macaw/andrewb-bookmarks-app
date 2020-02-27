@@ -5,9 +5,14 @@
   body {
     font-family: 'Roboto', sans-serif;
     width: 85%;
-    margin: 0 auto;
+    margin: auto;
   }
   
+  h1 {
+    margin-top: 10px;
+    text-align: center;
+  }
+
   button, input[type="text"] {
     padding: 5px;
   }
@@ -21,6 +26,22 @@
     margin: 0 auto;
   }
   
+  #bookmark-form {
+    text-align: center;
+  }
+
+  .bookmark-add-button {
+    display: inline-block;
+    height: 50px;
+    width: 200px;
+    vertical-align: top;
+  }
+
+  #book-rate {
+    height: 50px;
+    width: 200px;
+  }
+
   .bookmark-list {
     list-style: none;
     padding-left: 0;
@@ -33,6 +54,7 @@
   }
   
   .bookmark-item {
+    text-align: center;
     display: block;
     color: grey;
     font-style: italic;
@@ -45,4 +67,22 @@
     position: absolute;
     top: 0;
     right: 5;
+  }
+
+  @media screen and (max-width: 320px) {
+    
+    h1 {
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    li {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    a {
+      text-align: center;
+    }
+
   }

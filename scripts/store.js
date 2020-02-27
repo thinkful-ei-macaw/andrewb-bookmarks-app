@@ -41,9 +41,6 @@ const setError = function(error) {
   this.requestError = error;
 };
 
-const getError = function() {
-  return this.requestError;
-};
 
 export default {
   bookmarks,
@@ -60,5 +57,4 @@ export default {
   updateBookmark,
   editThisBookmark,
   setError,
-  getError,
 };
