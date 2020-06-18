@@ -37,11 +37,11 @@ const generateNewBookmark = function() {
     <p class="request-error" hidden>Error: ${store.requestError}</p>
     <form id="bookmark-form">
         <label for="title">Name: </label>
-        <input type="text" name="title" id="title" placeholder="Title here" required/><br>
+        <input required type="text" name="title" id="title" placeholder="Title here"><br>
         <label for="url">Website: </label>
-        <input type="text" name="url" id ="url" placeholder="Ex., http or https" required/><br>
+        <input required type="text" name="url" id ="url" placeholder="Ex., http or https"><br>
         <label for="desc">Description:</label>
-        <input type="text" name="desc" id="desc" placeholder="Add a brief description here"/><br>
+        <input required type="text" name="desc" id="desc" placeholder="Add a brief description here"><br>
         <label for="rating">Rating: </label>
         <select name="rating" id="book-new-rating">
             <option value="">--Give A Rating--</option>
@@ -51,7 +51,10 @@ const generateNewBookmark = function() {
             <option value="4">4</option>
             <option value="5">5</option>
         </select><br>
-        <button type="submit" class="button">Add New Bookmark</button>
+        <div>
+          <button type="submit" class="button">Add New Bookmark</button>
+          <button id="cancelAdd" class="button">Cancel Bookmark</button>
+        </div>
     </form>
     </div>`;
 }
@@ -160,7 +163,7 @@ const addNewBookmark = function() {
     const title = e.target.title.value;
     const url = e.target.url.value;
     const desc = e.target.desc.value;
-    const bookmark = {title, url, rating, desc};
+    const bookmark = {title, url, desc, rating};
     api.createBookmark(bookmark)
       .then(data => {
         store.addBookmark(data);
@@ -170,6 +173,13 @@ const addNewBookmark = function() {
       store.adding = false;
   });
 };
+
+const cancelAddBookmark = function() {
+  $('#starter').on('click', '#cancelAdd', event => {
+    event.preventDefault();
+    store.adding = false;
+  })
+}
 
 const deleteBookmarkClicked = function() {
   $('#starter').on('click', '.bookmark-delete', event => {
@@ -257,6 +267,7 @@ const bindEventListeners = function () {
   addErrorToStoreAndRender();
   addNewBookmark();
   addBookmarkStart();
+  cancelAddBookmark;
   deleteBookmarkClicked();
   updateCurrentBookmark();
   cancelBookmarkUpdate();
