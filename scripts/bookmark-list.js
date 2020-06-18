@@ -53,7 +53,7 @@ const generateNewBookmark = function() {
         </select><br>
         <div>
           <button class="button">Add New Bookmark</button>
-          <button id="cancelAdd" class="button">Cancel Bookmark</button>
+          <button type="button" id="cancelAdd" class="button">Cancel Bookmark</button>
         </div>
     </form>
     </div>`;
@@ -178,7 +178,7 @@ const cancelAddBookmark = function() {
   $('#starter').on('click', '#cancelAdd', event => {
     event.preventDefault();
     store.adding = false;
-    $('#starter').html(generateInitialPage()).append(html);
+    render();
   })
 }
 
@@ -268,7 +268,7 @@ const bindEventListeners = function () {
   addErrorToStoreAndRender();
   addNewBookmark();
   addBookmarkStart();
-  cancelAddBookmark;
+  cancelAddBookmark();
   deleteBookmarkClicked();
   updateCurrentBookmark();
   cancelBookmarkUpdate();
