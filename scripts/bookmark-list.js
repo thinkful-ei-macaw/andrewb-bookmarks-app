@@ -52,7 +52,7 @@ const generateNewBookmark = function() {
             <option value="5">5</option>
         </select><br>
         <div>
-          <button type="submit" class="button">Add New Bookmark</button>
+          <button class="button">Add New Bookmark</button>
           <button id="cancelAdd" class="button">Cancel Bookmark</button>
         </div>
     </form>
@@ -178,6 +178,7 @@ const cancelAddBookmark = function() {
   $('#starter').on('click', '#cancelAdd', event => {
     event.preventDefault();
     store.adding = false;
+    $('#starter').html(generateInitialPage()).append(html);
   })
 }
 
